@@ -27,25 +27,20 @@ public class RequestHandler {
             String contentType = decideContentType(uri);
             String method = HttpUtils.getMethod(request);
 
-            InputStream in = IOUtils.getResource(uri);
+            InputStream input = IOUtils.getResource(uri);
 
-            if (method == null || !method.equals("GET")) {
-                HttpResponseUtils.sendMethodNotAllowed(output);
-                return;
-            }
-            if (in == null) {
+            if (input == null) {
                 HttpResponseUtils.sendNotFound(output);
                 return;
             }
 
-            HttpResponseUtils.sendSuccessResponse(in, output, contentType);
+            MethodHandler.handleMethod(method, input, output, contentType);
+
         } catch (EmptyRequestException e) {
             //nothing to do here, socket is closed
-        }catch (BadRequestException e){
-
+        } catch (BadRequestException e) {
             try {
                 HttpResponseUtils.sendBadRequest(output);
-                socket.close();
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }

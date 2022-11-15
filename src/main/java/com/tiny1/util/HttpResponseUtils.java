@@ -20,6 +20,16 @@ public class HttpResponseUtils {
         Console.showResponse(Response.OK + "Content-Type: " + contentType);
     }
 
+    public static void sendHeadResponse(OutputStream output,String contentType) throws IOException {
+        PrintWriter pw = new PrintWriter(output);
+        pw.print(Response.OK);
+        pw.print("Content-Type: " + contentType + Response.CRLF);
+        pw.println();
+        pw.flush();
+        output.close();
+        Console.showResponse(Response.OK + "Content-Type: " + contentType);
+    }
+
     public static void sendNotFound(OutputStream output) throws IOException {
         PrintWriter pw = new PrintWriter(output);
         pw.print(Response.NOT_FOUND);
