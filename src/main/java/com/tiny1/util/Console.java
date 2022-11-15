@@ -2,21 +2,18 @@ package com.tiny1.util;
 
 public class Console {
     public static void showRequest(String request) {
-        System.out.println("Request size: " + request.length() + " bytes");
-        String[] lines = request.split("\r\n|\n|\r");
-        for (int i = 0; i < lines.length; i++) {;
-            if (i == 0)
-                System.out.println("-> " + lines[i]);
-            else
-                System.out.println("   " + lines[i]);
-        }
+        showIOWithIndentation(request, "-> ");
     }
 
     public static void showResponse(String response) {
-        String[] lines = response.split("\r\n|\n|\r");
+        showIOWithIndentation(response, "<- ");
+    }
+
+    private static void showIOWithIndentation(String string, String prefix) {
+        String[] lines = string.split("\r\n|\n|\r");
         for (int i = 0; i < lines.length; i++) {;
             if (i == 0)
-                System.out.println("<- " + lines[i]);
+                System.out.println(prefix + lines[i]);
             else
                 System.out.println("   " + lines[i]);
         }
