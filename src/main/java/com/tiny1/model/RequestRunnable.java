@@ -10,8 +10,8 @@ public class RequestRunnable implements Runnable {
 
     RequestHandler requestHandler = new RequestHandler();
 
-    public RequestRunnable(Socket sock) {
-        this.socket = sock;
+    public RequestRunnable(Socket socket) {
+        this.socket = socket;
     }
 
     @Override

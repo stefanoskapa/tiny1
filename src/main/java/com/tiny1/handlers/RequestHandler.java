@@ -1,11 +1,10 @@
 package com.tiny1.handlers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.Properties;
 
+import com.tiny1.util.Console;
 import com.tiny1.util.HttpResponseUtils;
 import com.tiny1.util.HttpUtils;
 import com.tiny1.util.IOUtils;
@@ -15,17 +14,15 @@ public class RequestHandler {
 
     public void handleRequest(Socket socket) {
         OutputStream output = null;
-
         try (socket) {
             output = socket.getOutputStream();
             String request = HttpUtils.getRequest(socket);
+            Console.showRequest(request);
 
             String uri = HttpUtils.getRequestUri(request);
             String contentType = decideContentType(uri);
             String method = HttpUtils.getMethod(request);
 
-            //System.out.println("[" + method + "]" + uri + " -> Response Content-Type: " + contentType.trim());
-            System.out.println(request);
             InputStream in = IOUtils.getResource(uri);
 
             if (method == null || !method.equals("GET")) {
@@ -37,9 +34,10 @@ public class RequestHandler {
                 return;
             }
 
-            HttpResponseUtils.sendSuccessResponse(in,output,contentType);
+            HttpResponseUtils.sendSuccessResponse(in, output, contentType);
 
         } catch (Exception e) {
+            System.out.println("ooops");
             e.printStackTrace();
             if (output != null) {
                 try {
@@ -52,29 +50,31 @@ public class RequestHandler {
     }
 
     private String getExtension(String string) {
-        String fileExtension="";
+        String fileExtension = "";
         String[] temp = string.split("\\.");
         if (temp.length > 1)
-            fileExtension= temp[temp.length-1];
+            fileExtension = temp[temp.length - 1];
 
         return fileExtension;
     }
+
     private String decideContentType(String uri) {
         String contentType;
-        try {
+
+        try (InputStream input = Thread.currentThread().getContextClassLoader()
+                .getResourceAsStream("mime.properties")) {
             Properties prop = new Properties();
-            prop.load(RequestHandler.class.getClassLoader().getResourceAsStream("mime.properties"));
+            prop.load(input);
             String extension = getExtension(uri);
             contentType = prop.getProperty(extension);
-
-            if (contentType ==null)
-                contentType = "Content-type: text/html\r\n"; //default content type
-            return contentType + "\r\n";
-        }
-        catch (Exception e) {
+            return contentType;
+        } catch (Exception e) {
             System.out.println(e.getMessage());
             contentType = "Content-type: text/html\r\n"; //default content type
         }
+
+
         return contentType;
     }
+
 }

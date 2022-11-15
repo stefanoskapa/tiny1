@@ -8,6 +8,8 @@ public interface Response {
     String INTERNAL_SERVER_ERROR = "HTTP/1.0 500 InternalServerError\r\n";
     String METHOD_NOT_ALLOWED = "HTTP/1.0 405 Method Not Allowed\r\n";
 
+    String CRLF = "\r\n";
+
 
 
 }
