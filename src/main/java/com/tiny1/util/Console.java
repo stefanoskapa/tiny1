@@ -1,5 +1,7 @@
 package com.tiny1.util;
 
+import com.tiny1.model.Configuration;
+
 public class Console {
     public static void showRequest(String request) {
         showIOWithIndentation(request, "-> ");
@@ -11,11 +13,14 @@ public class Console {
 
     private static void showIOWithIndentation(String string, String prefix) {
         String[] lines = string.split("\r\n|\n|\r");
-        for (int i = 0; i < lines.length; i++) {;
-            if (i == 0)
+        for (int i = 0; i < lines.length; i++) {
+            if (i == 0) {
                 System.out.println(prefix + lines[i]);
-            else
+                if (!Configuration.VERBOSE)
+                    return;
+            } else {
                 System.out.println("   " + lines[i]);
+            }
         }
     }
 
