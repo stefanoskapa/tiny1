@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.Socket;
 import java.util.Properties;
 
+import com.tiny1.exception.BadRequestException;
+import com.tiny1.exception.EmptyRequestException;
 import com.tiny1.util.Console;
 import com.tiny1.util.HttpResponseUtils;
 import com.tiny1.util.HttpUtils;
@@ -17,6 +19,8 @@ public class RequestHandler {
         try (socket) {
             output = socket.getOutputStream();
             String request = HttpUtils.getRequest(socket);
+            if (request.isEmpty())
+                throw new EmptyRequestException();
             Console.showRequest(request);
 
             String uri = HttpUtils.getRequestUri(request);
@@ -35,9 +39,17 @@ public class RequestHandler {
             }
 
             HttpResponseUtils.sendSuccessResponse(in, output, contentType);
+        } catch (EmptyRequestException e) {
+            //nothing to do here, socket is closed
+        }catch (BadRequestException e){
 
+            try {
+                HttpResponseUtils.sendBadRequest(output);
+                socket.close();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
         } catch (Exception e) {
-            System.out.println("ooops");
             e.printStackTrace();
             if (output != null) {
                 try {
