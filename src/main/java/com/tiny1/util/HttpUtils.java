@@ -5,7 +5,6 @@ import com.tiny1.model.Configuration;
 
 import java.io.InputStream;
 import java.net.Socket;
-import java.util.StringTokenizer;
 
 public class HttpUtils {
 
@@ -18,6 +17,7 @@ public class HttpUtils {
         int numOfBytes = inputStream.read(requestBytes);
 
         if (numOfBytes == Configuration.MAX_HTTP_HEADER_SIZE) {
+            System.out.println("Head too large");
             throw new BadRequestException();
         }
 
@@ -28,14 +28,5 @@ public class HttpUtils {
         return requestString.toString();
     }
 
-    public static String getRequestUri(String request) {
-        StringTokenizer stk = new StringTokenizer(request);
-        stk.nextToken(); //skip method
-        return stk.hasMoreTokens() ? stk.nextToken() : null;
-    }
 
-    public static String getMethod(String request) {
-        StringTokenizer stk = new StringTokenizer(request);
-        return stk.hasMoreTokens() ? stk.nextToken() : null;
-    }
 }

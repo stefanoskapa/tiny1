@@ -2,14 +2,15 @@ package com.tiny1.handlers;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.Properties;
 
 import com.tiny1.exception.BadRequestException;
 import com.tiny1.exception.EmptyRequestException;
+import com.tiny1.exception.NotFoundException;
+import com.tiny1.exception.NotImplementedException;
+import com.tiny1.model.Request;
 import com.tiny1.util.Console;
 import com.tiny1.util.HttpResponseUtils;
 import com.tiny1.util.HttpUtils;
-import com.tiny1.util.IOUtils;
 
 
 public class RequestHandler {
@@ -23,18 +24,28 @@ public class RequestHandler {
                 throw new EmptyRequestException();
             Console.showRequest(request);
 
-            String uri = HttpUtils.getRequestUri(request);
-            String contentType = decideContentType(uri);
-            String method = HttpUtils.getMethod(request);
+            Request requestObject = new Request();
+            requestObject.setOutput(output);
 
-            InputStream input = IOUtils.getResource(uri);
+            ResponseHandler resh = new ResponseHandler(null);
+            ContentTypeHandler cth = new ContentTypeHandler(resh);
+            ResourceHandler rh = new ResourceHandler(cth);
+            MethodValidatorHandler mvh = new MethodValidatorHandler(rh);
+            RequestValidatorHandler rvh = new RequestValidatorHandler(mvh);
+            rvh.handle(request, requestObject);
 
-            if (input == null) {
+        } catch (NotFoundException e) {
+            try {
                 HttpResponseUtils.sendNotFound(output);
-                return;
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
             }
-
-            MethodHandler.handleMethod(method, input, output, contentType);
+        } catch (NotImplementedException e) {
+            try {
+                HttpResponseUtils.sendMethodNotAllowed(output);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
 
         } catch (EmptyRequestException e) {
             //nothing to do here, socket is closed
@@ -54,34 +65,6 @@ public class RequestHandler {
                 }
             }
         }
-    }
-
-    private String getExtension(String string) {
-        String fileExtension = "";
-        String[] temp = string.split("\\.");
-        if (temp.length > 1)
-            fileExtension = temp[temp.length - 1];
-
-        return fileExtension;
-    }
-
-    private String decideContentType(String uri) {
-        String contentType;
-
-        try (InputStream input = Thread.currentThread().getContextClassLoader()
-                .getResourceAsStream("mime.properties")) {
-            Properties prop = new Properties();
-            prop.load(input);
-            String extension = getExtension(uri);
-            contentType = prop.getProperty(extension);
-            return contentType;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            contentType = "Content-type: text/html\r\n"; //default content type
-        }
-
-
-        return contentType;
     }
 
 }
