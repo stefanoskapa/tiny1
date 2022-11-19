@@ -8,14 +8,15 @@ public abstract class Handler {
         this.next = next;
     }
 
-    public void handle(String request,Request requestObject) throws Exception {
-        handleImpl(request,requestObject);
-        if (next == null)
-            return;
-        next.handle(request,requestObject);
+    public boolean handle(String request,Request requestObject) throws Exception {
+        if (handleImpl(request,requestObject) && next !=null) {
+            next.handle(request, requestObject);
+            return true;
+        }
+        return false;
     }
 
-    public abstract void handleImpl(String request, Request requestObject) throws Exception;
+    public abstract boolean handleImpl(String request, Request requestObject) throws Exception;
 
 
 }

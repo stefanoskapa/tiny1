@@ -3,6 +3,9 @@ package com.tiny1.handlers;
 import com.tiny1.exception.NotImplementedException;
 import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
+import com.tiny1.util.HttpResponseUtils;
+
+import java.io.IOException;
 
 public class MethodValidatorHandler extends Handler {
 
@@ -11,13 +14,17 @@ public class MethodValidatorHandler extends Handler {
     }
 
     @Override
-    public void handleImpl(String request, Request requestObject) throws NotImplementedException {
-        if (request.startsWith("GET"))
+    public boolean handleImpl(String request, Request requestObject) throws IOException {
+        if (request.startsWith("GET")) {
             requestObject.setMethod("GET");
-        else if (request.startsWith("HEAD"))
+            return true;
+        } else if (request.startsWith("HEAD")) {
             requestObject.setMethod("HEAD");
-        else
-            throw new NotImplementedException();
+            return true;
+        }
+        HttpResponseUtils.sendMethodNotAllowed(requestObject.getOutput());
+        return false;
+
 
     }
 }

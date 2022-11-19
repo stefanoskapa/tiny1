@@ -7,7 +7,7 @@ public class Request {
 
     private String method;
     private String uri;
-    private String httpVersion;
+   // private String httpVersion;
     private OutputStream output;
     private InputStream input;
     private String contentType;
@@ -52,11 +52,11 @@ public class Request {
         this.uri = uri;
     }
 
-    public String getHttpVersion() {
-        return httpVersion;
-    }
+    //public String getHttpVersion() {
+  //      return httpVersion;
+   // }
 
-    public void setHttpVersion(String httpVersion) {
-        this.httpVersion = httpVersion;
-    }
+   // public void setHttpVersion(String httpVersion) {
+    //    this.httpVersion = httpVersion;
+   // }
 }

@@ -12,7 +12,7 @@ public class ContentTypeHandler extends Handler {
     }
 
     @Override
-    public void handleImpl(String request, Request requestObject)  {
+    public boolean handleImpl(String request, Request requestObject)  {
 
         try (InputStream input = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream("mime.properties")) {
@@ -24,6 +24,7 @@ public class ContentTypeHandler extends Handler {
             System.out.println(e.getMessage());
             requestObject.setContentType("Content-type: text/html\r\n");
         }
+        return true;
 
     }
 

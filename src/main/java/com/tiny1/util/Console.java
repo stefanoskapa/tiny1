@@ -1,26 +1,14 @@
 package com.tiny1.util;
 
-import com.tiny1.model.Configuration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Console {
     public static void showRequest(String request) {
-        showIOWithIndentation(request, "-> ");
-    }
-
-    public static void showResponse(String response) {
-        showIOWithIndentation(response, "<- ");
-    }
-
-    private static void showIOWithIndentation(String string, String prefix) {
-        String[] lines = string.split("\r\n|\n|\r");
-        for (int i = 0; i < lines.length; i++) {
-            if (i == 0) {
-                System.out.println(prefix + lines[i]);
-                if (!Configuration.VERBOSE)
-                    return;
-            } else {
-                System.out.println("   " + lines[i]);
-            }
+        if (request != null) {
+            String[] lines = request.split("\r\n|\n|\r");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            System.out.println(LocalDateTime.now().format(formatter) + " -> " + lines[0]);
         }
     }
 
