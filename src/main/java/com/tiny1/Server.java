@@ -1,7 +1,8 @@
 package com.tiny1;
 
-import com.tiny1.model.Defaults;
+import com.tiny1.model.Conf;
 import com.tiny1.model.RequestRunnable;
+import com.tiny1.util.ArgParser;
 import com.tiny1.util.Console;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -12,11 +13,16 @@ public class Server {
 
     public static void main(String[] args) {
 
-        Console.showLogo();
 
-        try (ServerSocket serverSocket = new ServerSocket(Defaults.PORT)) {
-            ExecutorService executor = Executors.newFixedThreadPool(Defaults.THREAD_POOL);
-            System.out.println("Server started on port " + Defaults.PORT);
+
+        ArgParser parser = new ArgParser(args);
+        parser.parse();
+
+        Console.showLogo();
+        Console.showSettings();
+
+        try (ServerSocket serverSocket = new ServerSocket(Conf.port)) {
+            ExecutorService executor = Executors.newFixedThreadPool(Conf.poolSize);
             System.out.println("Waiting for incoming connections...\n");
 
             while(true) {

@@ -1,9 +1,10 @@
 package com.tiny1.util;
 
+import com.tiny1.model.Conf;
+
 import java.io.*;
 
 public class IOUtils {
-    private static final String STATIC_PATH = System.getProperty("user.dir") + "/static";
 
     public static void copy(InputStream in, OutputStream out) throws IOException {
         int value;
@@ -13,7 +14,7 @@ public class IOUtils {
     }
 
     public static InputStream getResource(String uri) {
-        String fullFilePath = (STATIC_PATH + uri).replace("\\","/");
+        String fullFilePath = (Conf.staticPath + uri).replace("\\","/");
         File initialFile = new File(fullFilePath);
         try {
             return new DataInputStream(new FileInputStream(initialFile));
