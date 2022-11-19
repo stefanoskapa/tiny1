@@ -2,6 +2,7 @@ package com.tiny1.model;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDateTime;
 
 public class Request {
 
@@ -11,6 +12,25 @@ public class Request {
     private OutputStream output;
     private InputStream input;
     private String contentType;
+    private LocalDateTime timestamp;
+
+    private String httpTag;
+
+    public Request() {
+        this.timestamp = LocalDateTime.now();
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public String getHttpTag() {
+        return httpTag;
+    }
+
+    public void setHttpTag(String httpTag) {
+        this.httpTag = httpTag;
+    }
 
     public String getMethod() {
         return method;

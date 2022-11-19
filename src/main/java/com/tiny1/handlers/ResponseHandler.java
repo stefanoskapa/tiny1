@@ -11,10 +11,11 @@ public class ResponseHandler extends Handler {
 
     @Override
     public boolean handleImpl(String request, Request requestObject) throws Exception {
+
         if (requestObject.getMethod().equals("GET"))
-            HttpResponseUtils.sendSuccessResponse(requestObject.getInput(), requestObject.getOutput(), requestObject.getContentType());
+            HttpResponseUtils.sendSuccessResponse(requestObject);
         if (requestObject.getMethod().equals("HEAD"))
-            HttpResponseUtils.sendHeadResponse(requestObject.getOutput(), requestObject.getContentType());
+            HttpResponseUtils.sendHeadResponse(requestObject);
         return true;
     }
 }

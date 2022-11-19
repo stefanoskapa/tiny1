@@ -22,7 +22,7 @@ public class MethodValidatorHandler extends Handler {
             requestObject.setMethod("HEAD");
             return true;
         }
-        HttpResponseUtils.sendMethodNotAllowed(requestObject.getOutput());
+        HttpResponseUtils.sendMethodNotAllowed(requestObject);
         return false;
 
 

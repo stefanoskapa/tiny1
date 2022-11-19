@@ -5,7 +5,9 @@ import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
 import com.tiny1.util.HttpResponseUtils;
 
+import javax.print.DocFlavor;
 import java.io.IOException;
+import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class RequestValidatorHandler extends Handler {
@@ -25,9 +27,14 @@ public class RequestValidatorHandler extends Handler {
 //        if (!request.matches("[A-Z]{3,7} [/a-zA-Z0-9\\-@:%._+~#=]+ HTTP/\\d.\\d\r\n[\\s\\S]*"))
         Pattern pat = Pattern.compile("^[A-Z]{3,7} \\S+ HTTP/\\d.\\d\r\n");
         if (!pat.matcher(request).find()) {
-            HttpResponseUtils.sendBadRequest(requestObject.getOutput());
+            HttpResponseUtils.sendBadRequest(requestObject);
             return false;
         }
+        StringTokenizer tokens = new StringTokenizer(request);
+        requestObject.setMethod(tokens.nextToken());
+        requestObject.setUri(tokens.nextToken());
+        requestObject.setHttpTag(tokens.nextToken());
+
         return true;
     }
 

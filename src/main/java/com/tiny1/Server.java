@@ -13,8 +13,6 @@ public class Server {
 
     public static void main(String[] args) {
 
-
-
         ArgParser parser = new ArgParser(args);
         parser.parse();
 

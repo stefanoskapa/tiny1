@@ -6,10 +6,10 @@ import java.io.*;
 
 public class IOUtils {
 
-    public static void copy(InputStream in, OutputStream out) throws IOException {
+    public static void copy(InputStream input, OutputStream output) throws IOException {
         int value;
-        while ((value = in.read()) != -1) {
-            out.write(value);
+        while ((value = input.read()) != -1) {
+            output.write(value);
         }
     }
 

@@ -22,16 +22,15 @@ public class ResourceHandler extends Handler {
         String uri = tokens.nextToken();
 
         InputStream input = IOUtils.getResource(uri);
-
+        requestObject.setUri(uri);
         if (input == null) {
-            HttpResponseUtils.sendNotFound(requestObject.getOutput());
+            HttpResponseUtils.sendNotFound(requestObject);
             return false;
 
         }
 
-
         requestObject.setInput(input);
-        requestObject.setUri(uri);
+
         return true;
 
 

@@ -1,16 +1,23 @@
 package com.tiny1.util;
 
 import com.tiny1.model.Conf;
+import com.tiny1.model.Request;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Console {
-    public static void showRequest(String request) {
-        if (request != null) {
-            String[] lines = request.split("\r\n|\n|\r");
+    public static void log(Request requestObject, String response) {
+        if (requestObject != null) {
+            //String[] lines = request.split("\r\n|\n|\r");
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
-            System.out.println(LocalDateTime.now().format(formatter) + " -> " + lines[0]);
+         //   System.out.println(LocalDateTime.now().format(formatter) + " -> " + lines[0]);
+            System.out.println(requestObject.getTimestamp().format(formatter) +
+                    " -> " + requestObject.getMethod() +
+                    " " + requestObject.getUri() +
+                    " " + requestObject.getHttpTag() +
+                    "\n" +LocalDateTime.now().format(formatter) + " <- " + response);
+
         }
     }
 
