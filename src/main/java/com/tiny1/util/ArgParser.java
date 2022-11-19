@@ -5,7 +5,7 @@ import com.tiny1.model.Defaults;
 
 
 public class ArgParser {
-    private String[] args;
+    private final String[] args;
 
     public ArgParser(String[] args) {
         this.args = args;
@@ -23,7 +23,6 @@ public class ArgParser {
                 System.exit(0);
             }
         }
-
 
     }
 

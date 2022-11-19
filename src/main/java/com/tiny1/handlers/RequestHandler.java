@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 import com.tiny1.model.Request;
+import com.tiny1.model.Response;
 import com.tiny1.util.HttpResponseUtils;
 import com.tiny1.util.HttpUtils;
 
@@ -36,7 +37,7 @@ public class RequestHandler {
             e.printStackTrace();
             if (output != null) {
                 try {
-                    HttpResponseUtils.sendInternalError(requestObject);
+                    HttpResponseUtils.sendResponse(requestObject, Response.INTERNAL_SERVER_ERROR);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }

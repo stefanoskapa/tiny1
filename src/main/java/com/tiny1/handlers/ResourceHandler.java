@@ -3,6 +3,7 @@ package com.tiny1.handlers;
 import com.tiny1.exception.NotFoundException;
 import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
+import com.tiny1.model.Response;
 import com.tiny1.util.HttpResponseUtils;
 import com.tiny1.util.IOUtils;
 
@@ -24,7 +25,7 @@ public class ResourceHandler extends Handler {
         InputStream input = IOUtils.getResource(uri);
         requestObject.setUri(uri);
         if (input == null) {
-            HttpResponseUtils.sendNotFound(requestObject);
+            HttpResponseUtils.sendResponse(requestObject, Response.NOT_FOUND);
             return false;
 
         }

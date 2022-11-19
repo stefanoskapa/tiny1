@@ -2,6 +2,7 @@ package com.tiny1.handlers;
 
 import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
+import com.tiny1.model.Response;
 import com.tiny1.util.HttpResponseUtils;
 
 public class ResponseHandler extends Handler {
@@ -15,7 +16,7 @@ public class ResponseHandler extends Handler {
         if (requestObject.getMethod().equals("GET"))
             HttpResponseUtils.sendSuccessResponse(requestObject);
         if (requestObject.getMethod().equals("HEAD"))
-            HttpResponseUtils.sendHeadResponse(requestObject);
+            HttpResponseUtils.sendResponse(requestObject, Response.OK);
         return true;
     }
 }
