@@ -8,13 +8,21 @@ public class Request {
 
     private String method;
     private String uri;
-   // private String httpVersion;
+    private String requestString;
     private OutputStream output;
     private InputStream input;
     private String contentType;
     private LocalDateTime timestamp;
 
     private String httpTag;
+
+    public String getRequestString() {
+        return requestString;
+    }
+
+    public void setRequestString(String requestString) {
+        this.requestString = requestString;
+    }
 
     public Request() {
         this.timestamp = LocalDateTime.now();

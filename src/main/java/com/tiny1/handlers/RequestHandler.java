@@ -17,18 +17,19 @@ public class RequestHandler {
         OutputStream output;
         try (socket) {
             output = socket.getOutputStream();
-            String request = HttpUtils.getRequest(socket);
-            if (request.isEmpty()) {
+            String rawRequest = HttpUtils.getRequest(socket);
+            if (rawRequest.isEmpty()) {
                 socket.close();
                 return;
             }
             requestObject.setOutput(output);
+            requestObject.setRequestString(rawRequest);
 
             new RequestValidatorHandler(
                     new MethodValidatorHandler(
                             new ResourceHandler(
                                     new ContentTypeHandler(null)))
-            ).handle(request, requestObject, responseObject);
+            ).handle(requestObject, responseObject);
 
             HttpUtils.sendResponse(requestObject, responseObject);
 

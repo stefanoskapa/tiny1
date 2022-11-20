@@ -17,8 +17,8 @@ public class ResourceHandler extends Handler {
     }
 
     @Override
-    public boolean handleImpl(String request, Request requestObject, Response responseObject) {
-        StringTokenizer tokens = new StringTokenizer(request);
+    public boolean handleImpl(Request requestObject, Response responseObject) {
+        StringTokenizer tokens = new StringTokenizer(requestObject.getRequestString());
         tokens.nextToken();
         String uri = tokens.nextToken();
 

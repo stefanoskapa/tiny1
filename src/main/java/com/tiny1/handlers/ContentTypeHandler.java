@@ -13,7 +13,7 @@ public class ContentTypeHandler extends Handler {
     }
 
     @Override
-    public boolean handleImpl(String request, Request requestObject, Response responseObject)  {
+    public boolean handleImpl(Request requestObject, Response responseObject)  {
 
         try (InputStream input = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream("mime.properties")) {
