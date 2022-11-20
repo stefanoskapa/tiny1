@@ -1,6 +1,5 @@
 package com.tiny1.util;
 
-import com.tiny1.exception.BadRequestException;
 import com.tiny1.model.Conf;
 import com.tiny1.model.Request;
 import com.tiny1.model.HttpResponses;
@@ -22,7 +21,7 @@ public class HttpUtils {
         int numOfBytes = inputStream.read(requestBytes);
 
         if (numOfBytes == Conf.headerSize) {
-            throw new BadRequestException();
+            throw new RuntimeException("Header size exceeded");
         }
 
         if (numOfBytes != -1) {
