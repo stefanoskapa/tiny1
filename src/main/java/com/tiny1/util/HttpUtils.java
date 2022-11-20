@@ -34,8 +34,8 @@ public class HttpUtils {
 
     public static void sendResponse(Request requestObject, String response) throws IOException {
         PrintWriter pw = new PrintWriter(requestObject.getOutput());
-        pw.print(response);
-        if (requestObject.getMethod().equals("GET")) {
+        pw.print(response + Response.CRLF);
+        if (requestObject.getMethod().equals("GET") && response.equals(Response.OK)) {
             pw.print("Content-Type: " + requestObject.getContentType() + Response.CRLF);
             pw.println();
             pw.flush();

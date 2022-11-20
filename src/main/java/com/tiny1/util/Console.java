@@ -4,16 +4,20 @@ import com.tiny1.model.Conf;
 import com.tiny1.model.Request;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 public class Console {
     public static void log(Request requestObject, String response) {
         if (requestObject != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+            LocalDateTime now = LocalDateTime.now();
+            long responseTimeMillis =  ChronoUnit.NANOS.between(requestObject.getTimestamp(), now) / 1000000;
             System.out.println(requestObject.getTimestamp().format(formatter) +
                     " -> " + requestObject.getMethod() +
                     " " + requestObject.getUri() +
                     " " + requestObject.getHttpTag() +
-                    "\n" + LocalDateTime.now().format(formatter) + " <- " + response);
+                    "\n" + now.format(formatter) + " <- " + response +
+                    " (" + responseTimeMillis + "ms)");
         }
     }
 

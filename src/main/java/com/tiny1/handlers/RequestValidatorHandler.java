@@ -17,7 +17,7 @@ public class RequestValidatorHandler extends Handler {
 
     @Override
     public boolean handleImpl(String request, Request requestObject) throws IOException {
-        Pattern pat = Pattern.compile("^[A-Z]{3,7} \\S+ HTTP/\\d.\\d\r\n");
+        Pattern pat = Pattern.compile("^[A-Z]{3,7} \\S{1,2048} HTTP/\\d.\\d\r\n");
         if (!pat.matcher(request).find()) {
             HttpUtils.sendResponse(requestObject, Response.BAD_REQUEST);
             return false;
