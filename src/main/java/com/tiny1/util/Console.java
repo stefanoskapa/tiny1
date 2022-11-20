@@ -18,13 +18,13 @@ public class Console {
     }
 
     public static void showLogo() {
-        System.out.println("\n    _/      _/                        _/");
-        System.out.println(" _/_/_/_/      _/_/_/    _/    _/  _/_/");
+        System.out.println("\n\n     _/      _/                        _/");
+        System.out.println("  _/_/_/_/      _/_/_/    _/    _/  _/_/");
+        System.out.println("   _/      _/  _/    _/  _/    _/    _/");
         System.out.println("  _/      _/  _/    _/  _/    _/    _/");
-        System.out.println(" _/      _/  _/    _/  _/    _/    _/");
-        System.out.println("  _/_/  _/  _/    _/    _/_/_/    _/       v0.1");
-        System.out.println("                           _/");
-        System.out.println("                      _/_/\n");
+        System.out.println("   _/_/  _/  _/    _/    _/_/_/    _/       v0.1");
+        System.out.println("                            _/");
+        System.out.println("                       _/_/\n");
     }
 
     public static void showSettings() {

@@ -22,7 +22,7 @@ public class ContentTypeHandler extends Handler {
             requestObject.setContentType(prop.getProperty(extension));
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            requestObject.setContentType("Content-type: text/html\r\n");
+            requestObject.setContentType("text/html\r\n");
         }
         return true;
 

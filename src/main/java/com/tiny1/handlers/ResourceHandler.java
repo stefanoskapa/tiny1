@@ -1,10 +1,9 @@
 package com.tiny1.handlers;
 
-import com.tiny1.exception.NotFoundException;
 import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
 import com.tiny1.model.Response;
-import com.tiny1.util.HttpResponseUtils;
+import com.tiny1.util.HttpUtils;
 import com.tiny1.util.IOUtils;
 
 import java.io.IOException;
@@ -24,17 +23,14 @@ public class ResourceHandler extends Handler {
 
         InputStream input = IOUtils.getResource(uri);
         requestObject.setUri(uri);
-        if (input == null) {
-            HttpResponseUtils.sendResponse(requestObject, Response.NOT_FOUND);
+        if ((input == null) || uri.contains("..")) { //path traversal attack
+            HttpUtils.sendResponse(requestObject, Response.NOT_FOUND);
             return false;
-
         }
 
         requestObject.setInput(input);
-
         return true;
-
-
-
     }
+
+
 }

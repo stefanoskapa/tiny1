@@ -14,10 +14,8 @@ public class IOUtils {
     }
 
     public static InputStream getResource(String uri) {
-        String fullFilePath = (Conf.staticPath + uri).replace("\\","/");
-        File initialFile = new File(fullFilePath);
         try {
-            return new DataInputStream(new FileInputStream(initialFile));
+            return new DataInputStream(new FileInputStream(Conf.staticPath + uri));
         } catch (FileNotFoundException e) {
             return null;
         }

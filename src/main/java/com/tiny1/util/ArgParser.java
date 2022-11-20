@@ -26,7 +26,7 @@ public class ArgParser {
 
     }
 
-    private void handleArg(int index) throws Exception {
+    private void handleArg(int index) throws NumberFormatException {
 
         String param = args[index];
 

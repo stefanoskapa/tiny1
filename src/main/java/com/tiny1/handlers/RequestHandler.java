@@ -5,7 +5,6 @@ import java.net.Socket;
 
 import com.tiny1.model.Request;
 import com.tiny1.model.Response;
-import com.tiny1.util.HttpResponseUtils;
 import com.tiny1.util.HttpUtils;
 
 
@@ -13,7 +12,7 @@ public class RequestHandler {
 
     public void handleRequest(Socket socket) {
         Request requestObject = null;
-        OutputStream output = null;
+        OutputStream output;
         try (socket) {
             output = socket.getOutputStream();
             String request = HttpUtils.getRequest(socket);
@@ -21,7 +20,6 @@ public class RequestHandler {
                 socket.close();
                 return;
             }
-
 
             requestObject = new Request();
             requestObject.setOutput(output);
@@ -35,12 +33,10 @@ public class RequestHandler {
 
         } catch (Exception e) {
             e.printStackTrace();
-            if (output != null) {
-                try {
-                    HttpResponseUtils.sendResponse(requestObject, Response.INTERNAL_SERVER_ERROR);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
+            try {
+                HttpUtils.sendResponse(requestObject, Response.INTERNAL_SERVER_ERROR);
+            } catch (IOException e1) {
+                e1.printStackTrace();
             }
         }
     }

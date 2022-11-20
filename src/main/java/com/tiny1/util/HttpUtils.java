@@ -2,8 +2,12 @@ package com.tiny1.util;
 
 import com.tiny1.exception.BadRequestException;
 import com.tiny1.model.Conf;
+import com.tiny1.model.Request;
+import com.tiny1.model.Response;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 
 public class HttpUtils {
@@ -28,4 +32,17 @@ public class HttpUtils {
     }
 
 
+    public static void sendResponse(Request requestObject, String response) throws IOException {
+        PrintWriter pw = new PrintWriter(requestObject.getOutput());
+        pw.print(response);
+        if (requestObject.getMethod().equals("GET")) {
+            pw.print("Content-Type: " + requestObject.getContentType() + Response.CRLF);
+            pw.println();
+            pw.flush();
+            IOUtils.copy(requestObject.getInput(), requestObject.getOutput());
+        }
+        pw.close();
+        requestObject.getOutput().close();
+        Console.log(requestObject, response);
+    }
 }
