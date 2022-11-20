@@ -16,7 +16,7 @@ public class RequestValidatorHandler extends Handler {
 
     @Override
     public boolean handleImpl(Request requestObject, Response responseObject) {
-        if (requestObject == null || responseObject == null || requestObject.getRequestString() == null)
+        if (requestObject.getRequestString() == null)
             return false;
         Pattern pat = Pattern.compile("^[A-Z]{3,7} \\S{1,2048} HTTP/\\d.\\d\r\n");
         if (!pat.matcher(requestObject.getRequestString()).find()) {

@@ -5,8 +5,6 @@ import com.tiny1.model.Request;
 import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
 
-import java.util.StringTokenizer;
-
 public class MethodValidatorHandler extends Handler {
 
     public MethodValidatorHandler(Handler next) {
@@ -15,8 +13,6 @@ public class MethodValidatorHandler extends Handler {
 
     @Override
     public boolean handleImpl(Request requestObject, Response responseObject) {
-        if (requestObject == null || responseObject == null)
-            return false;
         if (requestObject.getMethod().equals("GET") || requestObject.getMethod().equals("HEAD")) {
             return true;
         }

@@ -9,6 +9,8 @@ public abstract class Handler {
     }
 
     public boolean handle(Request requestObject, Response responseObject) {
+        if (requestObject == null || responseObject == null)
+            return false;
         if (handleImpl(requestObject,responseObject) && next !=null) {
             next.handle(requestObject,responseObject);
             return true;

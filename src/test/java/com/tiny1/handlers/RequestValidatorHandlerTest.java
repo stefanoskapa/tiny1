@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class RequestValidatorHandlerTest {
 
     @Test
-    public void testHandleImpl() {
+    public void testHandle() {
         RequestValidatorHandler rvh = new RequestValidatorHandler(null);
         boolean actual;
 
