@@ -11,7 +11,7 @@ import com.tiny1.util.HttpUtils;
 public class RequestHandler {
 
     public void handleRequest(Socket socket) {
-        Request requestObject = null;
+        Request requestObject = new Request();
         OutputStream output;
         try (socket) {
             output = socket.getOutputStream();
@@ -20,8 +20,6 @@ public class RequestHandler {
                 socket.close();
                 return;
             }
-
-            requestObject = new Request();
             requestObject.setOutput(output);
 
             new RequestValidatorHandler(

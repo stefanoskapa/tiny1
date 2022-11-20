@@ -15,7 +15,7 @@ public class HttpUtils {
     public static String getRequest(Socket socket) throws Exception {
 
         StringBuilder requestString = new StringBuilder();
-        byte [] requestBytes = new byte[Conf.headerSize];
+        byte[] requestBytes = new byte[Conf.headerSize];
 
         InputStream inputStream = socket.getInputStream();
         int numOfBytes = inputStream.read(requestBytes);
@@ -33,6 +33,7 @@ public class HttpUtils {
 
 
     public static void sendResponse(Request requestObject, String response) throws IOException {
+
         PrintWriter pw = new PrintWriter(requestObject.getOutput());
         pw.print(response + Response.CRLF);
         if (requestObject.getMethod().equals("GET") && response.equals(Response.OK)) {
@@ -43,6 +44,7 @@ public class HttpUtils {
         }
         pw.close();
         requestObject.getOutput().close();
+
         Console.log(requestObject, response);
     }
 }
