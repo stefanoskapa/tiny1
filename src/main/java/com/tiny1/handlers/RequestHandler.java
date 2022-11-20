@@ -12,7 +12,7 @@ import com.tiny1.util.HttpUtils;
 public class RequestHandler {
 
     public void handleRequest(Socket socket) {
-        Request requestObject = new Request();
+        Request requestObject = null;
         Response responseObject = new Response();
         OutputStream output;
         try (socket) {
@@ -22,6 +22,7 @@ public class RequestHandler {
                 socket.close();
                 return;
             }
+            requestObject = new Request();
             requestObject.setOutput(output);
             requestObject.setRequestString(rawRequest);
 
