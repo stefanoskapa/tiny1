@@ -34,12 +34,12 @@ public class RequestHandler {
             HttpUtils.sendResponse(requestObject, responseObject);
 
         } catch (Exception e) {
-            e.getMessage();
+            System.out.println(e.getMessage());
             try {
                 responseObject.setResponse(HttpResponses.INTERNAL_SERVER_ERROR);
                 HttpUtils.sendResponse(requestObject, responseObject);
             } catch (IOException e1) {
-                e1.getMessage();
+                System.out.println(e1.getMessage());
             }
         }
     }

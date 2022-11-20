@@ -26,3 +26,5 @@ jar {
                 'Class-Path': configurations.runtimeClasspath.files.collect { it.getName() }.join(' '))
     }
 }
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11

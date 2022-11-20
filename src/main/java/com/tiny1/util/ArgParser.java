@@ -15,7 +15,7 @@ public class ArgParser {
         if (args.length == 0)
             return;
 
-        for (int i = 0; i<args.length;i++) {
+        for (int i = 0; i < args.length; i++) {
             try {
                 handleArg(i);
             } catch (Exception e) {
@@ -31,19 +31,33 @@ public class ArgParser {
         String param = args[index];
 
         switch (param) {
-            case "-p", "--port" -> Conf.port = Integer.parseInt(args[index + 1]);
-            case "-v", "--version" -> {
+            case "-p":
+            case "--port":
+                Conf.port = Integer.parseInt(args[index + 1]);
+                break;
+            case "-v":
+            case "--version":
                 System.out.println(Defaults.VERSION);
                 System.exit(0);
-            }
-            case "-ps", "--pool-size" -> Conf.poolSize = Integer.parseInt(args[index + 1]);
-            case "-hs", "--header-size" -> Conf.headerSize = Integer.parseInt(args[index + 1]);
-            case "-sp", "--static-path" -> Conf.staticPath = args[index+1];
-            case "-h", "--help" -> {
+                break;
+            case "-ps":
+            case "--pool-size":
+                Conf.poolSize = Integer.parseInt(args[index + 1]);
+                break;
+            case "-hs":
+            case "--header-size":
+                Conf.headerSize = Integer.parseInt(args[index + 1]);
+                break;
+            case "-sp":
+            case "--static-path":
+                Conf.staticPath = args[index + 1];
+                break;
+            case "-h":
+            case "--help":
                 Console.showHelp();
                 System.exit(0);
-            }
         }
+
 
     }
 }
