@@ -1,4 +1,4 @@
-package com.tiny1.handlers;
+package com.tiny1.misc;
 
 import com.tiny1.model.Defaults;
 

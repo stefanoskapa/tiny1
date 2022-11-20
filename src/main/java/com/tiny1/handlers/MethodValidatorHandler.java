@@ -2,6 +2,7 @@ package com.tiny1.handlers;
 
 import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
+import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
 import com.tiny1.util.HttpUtils;
 
@@ -15,13 +16,13 @@ public class MethodValidatorHandler extends Handler {
     }
 
     @Override
-    public boolean handleImpl(String request, Request requestObject) throws IOException {
+    public boolean handleImpl(String request, Request requestObject, Response responseObject) {
         if (request.startsWith("GET") || request.startsWith("HEAD")) {
             StringTokenizer tokens = new StringTokenizer(request);
             requestObject.setMethod(tokens.nextToken());
             return true;
         }
-        HttpUtils.sendResponse(requestObject, Response.METHOD_NOT_ALLOWED);
+        responseObject.setResponse(HttpResponses.METHOD_NOT_ALLOWED);
         return false;
     }
 }

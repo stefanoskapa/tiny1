@@ -1,13 +1,13 @@
 package com.tiny1.model;
 
+public class Response {
+    private String response;
 
-public interface Response {
-    String CRLF = "\r\n";
-    String OK = "HTTP/1.0 200 OK";
-    String BAD_REQUEST = "HTTP/1.0 400 BadRequest";
-    String NOT_FOUND = "HTTP/1.0 404 NotFound";
-    String INTERNAL_SERVER_ERROR = "HTTP/1.0 500 InternalServerError";
-    String METHOD_NOT_ALLOWED = "HTTP/1.0 501 NotImplemented";
+    public String getResponse() {
+        return response;
+    }
 
+    public void setResponse(String response) {
+        this.response = response;
+    }
 }
-

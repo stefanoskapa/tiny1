@@ -3,6 +3,7 @@ package com.tiny1.util;
 import com.tiny1.exception.BadRequestException;
 import com.tiny1.model.Conf;
 import com.tiny1.model.Request;
+import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
 
 import java.io.IOException;
@@ -32,12 +33,12 @@ public class HttpUtils {
     }
 
 
-    public static void sendResponse(Request requestObject, String response) throws IOException {
+    public static void sendResponse(Request requestObject, Response responseObject) throws IOException {
 
         PrintWriter pw = new PrintWriter(requestObject.getOutput());
-        pw.print(response + Response.CRLF);
-        if (requestObject.getMethod().equals("GET") && response.equals(Response.OK)) {
-            pw.print("Content-Type: " + requestObject.getContentType() + Response.CRLF);
+        pw.print(responseObject.getResponse() + HttpResponses.CRLF);
+        if (requestObject.getMethod().equals("GET") && responseObject.getResponse().equals(HttpResponses.OK)) {
+            pw.print("Content-Type: " + requestObject.getContentType() + HttpResponses.CRLF);
             pw.println();
             pw.flush();
             IOUtils.copy(requestObject.getInput(), requestObject.getOutput());
@@ -45,6 +46,6 @@ public class HttpUtils {
         pw.close();
         requestObject.getOutput().close();
 
-        Console.log(requestObject, response);
+        Console.log(requestObject, responseObject.getResponse());
     }
 }

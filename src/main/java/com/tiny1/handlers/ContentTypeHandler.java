@@ -2,6 +2,7 @@ package com.tiny1.handlers;
 
 import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
+import com.tiny1.model.Response;
 
 import java.io.InputStream;
 import java.util.Properties;
@@ -12,14 +13,14 @@ public class ContentTypeHandler extends Handler {
     }
 
     @Override
-    public boolean handleImpl(String request, Request requestObject)  {
+    public boolean handleImpl(String request, Request requestObject, Response responseObject)  {
 
         try (InputStream input = Thread.currentThread().getContextClassLoader()
                 .getResourceAsStream("mime.properties")) {
             Properties prop = new Properties();
             prop.load(input);
             String extension = getExtension(requestObject.getUri());
-            requestObject.setContentType(prop.getProperty(extension));
+            requestObject.setContentType(prop.getProperty(extension)); // should be in Response Object
         } catch (Exception e) {
             System.out.println(e.getMessage());
             requestObject.setContentType("text/html\r\n");

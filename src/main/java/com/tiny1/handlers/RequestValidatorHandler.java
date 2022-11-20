@@ -2,10 +2,9 @@ package com.tiny1.handlers;
 
 import com.tiny1.model.Handler;
 import com.tiny1.model.Request;
+import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
-import com.tiny1.util.HttpUtils;
 
-import java.io.IOException;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
@@ -16,10 +15,10 @@ public class RequestValidatorHandler extends Handler {
     }
 
     @Override
-    public boolean handleImpl(String request, Request requestObject) throws IOException {
+    public boolean handleImpl(String request, Request requestObject, Response responseObject) {
         Pattern pat = Pattern.compile("^[A-Z]{3,7} \\S{1,2048} HTTP/\\d.\\d\r\n");
         if (!pat.matcher(request).find()) {
-            HttpUtils.sendResponse(requestObject, Response.BAD_REQUEST);
+            responseObject.setResponse(HttpResponses.BAD_REQUEST);
             return false;
         }
         StringTokenizer tokens = new StringTokenizer(request);
