@@ -52,6 +52,9 @@ public class ArgParser {
             case "--static-path":
                 Conf.staticPath = args[index + 1];
                 break;
+            case "--tls":
+                Conf.TLS = true;
+                break;
             case "-h":
             case "--help":
                 Console.showHelp();

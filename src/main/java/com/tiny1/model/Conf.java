@@ -7,5 +7,5 @@ public class Conf {
     public static int headerSize = Defaults.MAX_HTTP_HEADER_SIZE;
     public static String staticPath = Defaults.STATIC_PATH;
 
-
+    public static boolean TLS = Defaults.USE_TLS;
 }

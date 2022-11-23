@@ -1,8 +1,8 @@
 package com.tiny1.model;
 
 
-import com.tiny1.Server;
-import com.tiny1.handlers.RequestHandler;
+import com.tiny1.handlers.Processor;
+
 import java.net.Socket;
 
 public class RequestRunnable implements Runnable {
@@ -15,7 +15,7 @@ public class RequestRunnable implements Runnable {
 
     @Override
     public void run() {
-        Server.handleRequest(socket);
+        Processor.handleRequest(socket);
     }
 
 }

@@ -7,4 +7,6 @@ public interface Defaults {
     String STATIC_PATH = System.getProperty("user.dir") + System.getProperty("file.separator") + "static";
 
     String VERSION = "Tiny1 v0.1";
+
+    boolean USE_TLS = false;
 }

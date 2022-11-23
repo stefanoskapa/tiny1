@@ -44,6 +44,7 @@ public class Console {
         System.out.println("-hs, --header-size    Maximum request-header size in bytes");
         System.out.println("-sp, --static-path    Folder to expose");
         System.out.println("-v, --version         Shows version of Tiny1");
+        System.out.println("--tls                 Use https with JVM defaults");
         System.out.println("-h, --help            Shows this page\n");
     }
 }
