@@ -18,7 +18,7 @@ public class HttpsServer {
         SSLServerSocketFactory ssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
 
-        try (ServerSocket serverSocket = ssf.createServerSocket(1234)) {
+        try (ServerSocket serverSocket = ssf.createServerSocket(Conf.port)) {
             ExecutorService executor = Executors.newFixedThreadPool(Conf.poolSize);
             System.out.println("Waiting for incoming connections...\n");
 
