@@ -16,6 +16,11 @@ public class Request {
 
     private String httpTag;
 
+    public Request(String requestString, OutputStream output) {
+        this.requestString = requestString;
+        this.output = output;
+    }
+
     public String getRequestString() {
         return requestString;
     }

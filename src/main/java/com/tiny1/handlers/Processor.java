@@ -10,8 +10,8 @@ import java.net.Socket;
 
 public class Processor {
     public static void handleRequest(Socket socket) {
-        Request requestObject = null;
-        Response responseObject = new Response();
+        Request request = null;
+        Response response = new Response();
         OutputStream output;
         try (socket) {
             output = socket.getOutputStream();
@@ -20,23 +20,21 @@ public class Processor {
                 socket.close();
                 return;
             }
-            requestObject = new Request();
-            requestObject.setOutput(output);
-            requestObject.setRequestString(rawRequest);
+            request = new Request(rawRequest,output);
 
             new RequestValidatorHandler(
                     new MethodValidatorHandler(
                             new ResourceHandler(
                                     new ContentTypeHandler(null)))
-            ).handle(requestObject, responseObject);
+            ).handle(request, response);
 
-            HttpUtils.sendResponse(requestObject, responseObject);
+            HttpUtils.sendResponse(request, response);
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
             try {
-                responseObject.setResponse(HttpResponses.INTERNAL_SERVER_ERROR);
-                HttpUtils.sendResponse(requestObject, responseObject);
+                response.setResponse(HttpResponses.INTERNAL_SERVER_ERROR);
+                HttpUtils.sendResponse(request, response);
             } catch (IOException e1) {
                 System.out.println(e1.getMessage());
             }
