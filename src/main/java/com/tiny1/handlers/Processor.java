@@ -13,6 +13,7 @@ public class Processor {
         Request request = null;
         Response response = new Response();
         OutputStream output;
+
         try (socket) {
             output = socket.getOutputStream();
             String rawRequest = HttpUtils.getRequest(socket);
@@ -22,10 +23,8 @@ public class Processor {
             }
             request = new Request(rawRequest,output);
 
-            new RequestValidatorHandler(
-                    new MethodValidatorHandler(
-                            new ResourceHandler(
-                                    new ContentTypeHandler(null)))
+            new RequestValidatorHandler(new MethodValidatorHandler(
+                            new ResourceHandler(new ContentTypeHandler(null)))
             ).handle(request, response);
 
             HttpUtils.sendResponse(request, response);

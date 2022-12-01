@@ -12,7 +12,7 @@ public class Request {
     private OutputStream output;
     private InputStream input;
     private String contentType;
-    private LocalDateTime timestamp;
+    private final LocalDateTime timestamp;
 
     private String httpTag;
 

@@ -11,13 +11,13 @@ public class Console {
         if (requestObject != null) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
             LocalDateTime now = LocalDateTime.now();
-            long responseTimeMillis =  ChronoUnit.NANOS.between(requestObject.getTimestamp(), now) / 1000000;
+            long responseTime =  ChronoUnit.MILLIS.between(requestObject.getTimestamp(), now);
             System.out.println(requestObject.getTimestamp().format(formatter) +
                     " -> " + requestObject.getMethod() +
                     " " + requestObject.getUri() +
                     " " + requestObject.getHttpTag() +
                     "\n" + now.format(formatter) + " <- " + response +
-                    " (" + responseTimeMillis + "ms)");
+                    " (" + responseTime + "ms)");
         }
     }
 
