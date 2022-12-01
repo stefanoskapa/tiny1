@@ -1,19 +1,18 @@
 package com.tiny1.util;
 
 import com.tiny1.model.Conf;
+import com.tiny1.model.Defaults;
 
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
 
 public class IOUtils {
 
     public static void copy(InputStream input, OutputStream output) throws IOException {
-        final ReadableByteChannel inputChannel = Channels.newChannel(input);
-        final WritableByteChannel outputChannel = Channels.newChannel(output);
-        fastChannelCopy(inputChannel, outputChannel);
+        byte[] buffer = new byte[Defaults.BUFFER_SIZE];
+        int lengthRead;
+        while ((lengthRead = input.read(buffer, 0, Defaults.BUFFER_SIZE)) > 0)
+            output.write(buffer, 0, lengthRead);
+        output.flush();
     }
 
     public static InputStream getResource(String uri) {
@@ -24,17 +23,5 @@ public class IOUtils {
         }
     }
 
-    private static void fastChannelCopy(ReadableByteChannel input, WritableByteChannel output) throws IOException {
-        ByteBuffer buffer = ByteBuffer.allocateDirect(16 * 1024);
-        while (input.read(buffer) != -1) {
-            buffer.flip();
-            output.write(buffer);
-            buffer.compact();
-        }
-        buffer.flip();
-        while (buffer.hasRemaining()) {
-            output.write(buffer);
-        }
-    }
 
 }

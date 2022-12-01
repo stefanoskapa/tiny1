@@ -9,4 +9,6 @@ public interface Defaults {
     String VERSION = "Tiny1 v0.1";
 
     boolean USE_TLS = false;
+
+    int BUFFER_SIZE = 1024;
 }
