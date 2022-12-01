@@ -19,6 +19,7 @@ public class Request {
     public Request(String requestString, OutputStream output) {
         this.requestString = requestString;
         this.output = output;
+        this.timestamp = LocalDateTime.now();
     }
 
     public String getRequestString() {
@@ -27,10 +28,6 @@ public class Request {
 
     public void setRequestString(String requestString) {
         this.requestString = requestString;
-    }
-
-    public Request() {
-        this.timestamp = LocalDateTime.now();
     }
 
     public LocalDateTime getTimestamp() {
