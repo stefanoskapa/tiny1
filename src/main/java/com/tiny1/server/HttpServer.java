@@ -3,6 +3,7 @@ package com.tiny1.server;
 import com.tiny1.model.*;
 import com.tiny1.util.ArgParser;
 import com.tiny1.util.Console;
+
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.concurrent.ExecutorService;
@@ -12,12 +13,11 @@ public class HttpServer {
 
     public static void start() {
 
-
         try (ServerSocket serverSocket = new ServerSocket(Conf.port)) {
             ExecutorService executor = Executors.newFixedThreadPool(Conf.poolSize);
             System.out.println("Waiting for incoming connections...\n");
 
-            while(true) {
+            while (true) {
                 Socket socket = serverSocket.accept();
                 executor.submit(new RequestRunnable(socket));
             }

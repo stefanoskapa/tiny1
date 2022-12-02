@@ -1,5 +1,8 @@
 package com.tiny1.model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Conf {
 
     public static int port = Defaults.PORT;
@@ -8,4 +11,6 @@ public class Conf {
     public static String staticPath = Defaults.STATIC_PATH;
 
     public static boolean TLS = Defaults.USE_TLS;
+
+    public static Map<String, String> redirects = new HashMap<>();
 }

@@ -32,6 +32,7 @@ public class HttpUtils {
     }
 
 
+    //TODO needs to be rewritten
     public static void sendResponse(Request requestObject, Response responseObject) throws IOException {
 
         PrintWriter pw = new PrintWriter(requestObject.getOutput());
@@ -41,6 +42,11 @@ public class HttpUtils {
             pw.println();
             pw.flush();
             IOUtils.copy(requestObject.getInput(), requestObject.getOutput());
+        }
+        if (requestObject.getMethod().equals("GET") && responseObject.getResponse().equals(HttpResponses.MOVED_PERMANENTLY)) {
+            pw.print("Location: " + Conf.redirects.get(requestObject.getUri()) + HttpResponses.CRLF);
+            pw.println();
+            pw.flush();
         }
         pw.close();
         requestObject.getOutput().close();

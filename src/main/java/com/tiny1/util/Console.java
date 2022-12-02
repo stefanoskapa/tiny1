@@ -38,6 +38,11 @@ public class Console {
         System.out.println("Pool Size:............." + Conf.poolSize);
         System.out.println("Max Header Size:......." + Conf.headerSize);
         System.out.println("Document Root:........." + Conf.staticPath + "\n");
+        if (!Conf.redirects.isEmpty()) {
+            System.out.println("--------- Redirects ---------");
+            System.out.println(Conf.redirects);
+        }
+        System.out.println();
     }
 
     public static void showHelp() {
@@ -47,6 +52,7 @@ public class Console {
         System.out.println("-dr, --document-root    Document Root folder");
         System.out.println("-v, --version           Shows version of Tiny1");
         System.out.println("--tls                   Use https with JVM defaults");
+        System.out.println("-r, --redirect          301 Redirect. Specify two urls");
         System.out.println("-h, --help              Shows this page\n");
     }
 }

@@ -17,7 +17,7 @@ public class ArgParser {
 
         for (int i = 0; i < args.length; i++) {
             try {
-                handleArg(i);
+                i = handleArg(i);
             } catch (Exception e) {
                 System.out.println("Invalid arguments. See --help");
                 System.exit(0);
@@ -26,14 +26,14 @@ public class ArgParser {
 
     }
 
-    private void handleArg(int index) throws NumberFormatException {
+    private int handleArg(int index) throws NumberFormatException {
 
         String param = args[index].toLowerCase();
 
         switch (param) {
             case "-p":
             case "--port":
-                Conf.port = Integer.parseInt(args[index + 1]);
+                Conf.port = Integer.parseInt(args[++index]);
                 break;
             case "-v":
             case "--version":
@@ -42,25 +42,29 @@ public class ArgParser {
                 break;
             case "-ps":
             case "--pool-size":
-                Conf.poolSize = Integer.parseInt(args[index + 1]);
+                Conf.poolSize = Integer.parseInt(args[++index]);
                 break;
             case "-hs":
             case "--header-size":
-                Conf.headerSize = Integer.parseInt(args[index + 1]);
+                Conf.headerSize = Integer.parseInt(args[++index]);
                 break;
             case "-dr":
             case "--document-root":
-                Conf.staticPath = args[index + 1];
+                Conf.staticPath = args[++index];
                 break;
             case "--tls":
                 Conf.TLS = true;
+                break;
+            case "-r":
+            case "--redirect":
+                Conf.redirects.put(args[++index],args[++index]);
                 break;
             case "-h":
             case "--help":
                 Console.showHelp();
                 System.exit(0);
         }
-
+        return index;
 
     }
 }
