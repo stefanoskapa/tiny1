@@ -28,7 +28,7 @@ public class ArgParser {
 
     private void handleArg(int index) throws NumberFormatException {
 
-        String param = args[index];
+        String param = args[index].toLowerCase();
 
         switch (param) {
             case "-p":
@@ -48,8 +48,8 @@ public class ArgParser {
             case "--header-size":
                 Conf.headerSize = Integer.parseInt(args[index + 1]);
                 break;
-            case "-sp":
-            case "--static-path":
+            case "-dr":
+            case "--document-root":
                 Conf.staticPath = args[index + 1];
                 break;
             case "--tls":
