@@ -11,6 +11,14 @@ public abstract class Handler {
         this.next = next;
     }
 
+    /**
+     * Calls handleImpl() and runs the next handler in the chain.
+     * Some validation has been put here in order to
+     * avoid repetition in the concrete handlers.
+     * @param request a Request object
+     * @param response a Response object
+     * @return if validation succeeded or not
+     */
     public boolean handle(Request request, Response response) {
         if (request == null
                 || response == null

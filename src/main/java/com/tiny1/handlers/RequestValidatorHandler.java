@@ -15,8 +15,6 @@ public class RequestValidatorHandler extends Handler {
 
     @Override
     public boolean handleImpl(Request request, Response response) {
-        if (request.getRequestString() == null)
-            return false;
         if (!PATTERN.matcher(request.getRequestString()).find()) {
             response.setResponse(HttpResponses.BAD_REQUEST);
             return false;
