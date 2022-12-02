@@ -30,13 +30,17 @@ That said, security has been taken seriously.
 * Java 11
 
 ## Build and Run
-Clone from main and execute
+First clone the project:
+
+`git clone https://github.com/stefanoskapa/tiny1.git`
+
+Then move to the tiny1 directory and build the jar:
 
 `./gradlew build`
 
-Then run the resulting .jar with
+Move to /build/libs and start the server with:
 
-`java -jar tiny1.jar`
+`java -jar tiny1.jar <optional arguments>` 
 
 
 
