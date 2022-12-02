@@ -14,7 +14,7 @@ public abstract class Handler {
     /**
      * Calls handleImpl() and runs the next handler in the chain.
      * Some validation has been put here in order to
-     * avoid repetition in the concrete handlers.
+     * avoid boilerplate in the concrete handlers.
      * @param request a Request object
      * @param response a Response object
      * @return if validation succeeded or not
