@@ -4,6 +4,7 @@ import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Request;
 import com.tiny1.model.Response;
 import com.tiny1.util.HttpUtils;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
@@ -21,11 +22,13 @@ public class Processor {
                 socket.close();
                 return;
             }
-            request = new Request(rawRequest,output);
+            request = new Request(rawRequest, output);
 
-            new RequestValidatorHandler(new MethodValidatorHandler(
-                            new ResourceHandler(new ContentTypeHandler(null)))
-            ).handle(request, response);
+            Handler cth = new ContentTypeHandler(null);
+            Handler rh = new ResourceHandler(cth);
+            Handler mvh = new MethodValidatorHandler(rh);
+            Handler rvh = new RequestValidatorHandler(mvh);
+            rvh.handle(request, response);
 
             HttpUtils.sendResponse(request, response);
 
@@ -33,7 +36,8 @@ public class Processor {
             System.out.println(e.getMessage());
             try {
                 response.setResponse(HttpResponses.INTERNAL_SERVER_ERROR);
-                HttpUtils.sendResponse(request, response);
+                if (request != null)
+                    HttpUtils.sendResponse(request, response);
             } catch (IOException e1) {
                 System.out.println(e1.getMessage());
             }

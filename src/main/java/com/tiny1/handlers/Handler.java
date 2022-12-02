@@ -5,20 +5,25 @@ import com.tiny1.model.Response;
 
 public abstract class Handler {
 
-    private Handler next;
+    private final Handler next;
 
     public Handler(Handler next) {
         this.next = next;
     }
 
-    public boolean handle(Request requestObject, Response responseObject) {
-        if (requestObject == null || responseObject == null)
+    public boolean handle(Request request, Response response) {
+        if (request == null
+                || response == null
+                || request.getRequestString() == null
+                || request.getOutput() == null)
             return false;
-        if (handleImpl(requestObject, responseObject) && next != null) {
-            next.handle(requestObject, responseObject);
-            return true;
-        }
-        return false;
+
+        boolean isSuccess = handleImpl(request, response);
+
+        if (next != null && isSuccess)
+            next.handle(request, response);
+
+        return isSuccess;
     }
 
     public abstract boolean handleImpl(Request requestObject, Response responseObject);

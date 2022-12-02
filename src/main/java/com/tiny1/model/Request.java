@@ -8,8 +8,8 @@ public class Request {
 
     private String method;
     private String uri;
-    private String requestString;
-    private OutputStream output;
+    private final String requestString;
+    private final OutputStream output;
     private InputStream input;
     private String contentType;
     private final LocalDateTime timestamp;
@@ -24,10 +24,6 @@ public class Request {
 
     public String getRequestString() {
         return requestString;
-    }
-
-    public void setRequestString(String requestString) {
-        this.requestString = requestString;
     }
 
     public LocalDateTime getTimestamp() {
@@ -48,10 +44,6 @@ public class Request {
 
     public OutputStream getOutput() {
         return output;
-    }
-
-    public void setOutput(OutputStream output) {
-        this.output = output;
     }
 
     public InputStream getInput() {
@@ -82,11 +74,4 @@ public class Request {
         this.uri = uri;
     }
 
-    //public String getHttpVersion() {
-  //      return httpVersion;
-   // }
-
-   // public void setHttpVersion(String httpVersion) {
-    //    this.httpVersion = httpVersion;
-   // }
 }

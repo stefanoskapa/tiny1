@@ -10,5 +10,5 @@ public interface Defaults {
 
     boolean USE_TLS = false;
 
-    int BUFFER_SIZE = 1024;
+    int BUFFER_SIZE = 8192;
 }

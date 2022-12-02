@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public class RequestValidatorHandler extends Handler {
-
+    private static final Pattern PATTERN = Pattern.compile("^[A-Z]{3,7} \\S{1,2048} HTTP/\\d.\\d\r\n");
     public RequestValidatorHandler(Handler next) {
         super(next);
     }
@@ -17,8 +17,7 @@ public class RequestValidatorHandler extends Handler {
     public boolean handleImpl(Request request, Response response) {
         if (request.getRequestString() == null)
             return false;
-        Pattern pat = Pattern.compile("^[A-Z]{3,7} \\S{1,2048} HTTP/\\d.\\d\r\n");
-        if (!pat.matcher(request.getRequestString()).find()) {
+        if (!PATTERN.matcher(request.getRequestString()).find()) {
             response.setResponse(HttpResponses.BAD_REQUEST);
             return false;
         }
