@@ -12,5 +12,5 @@ public class Conf {
 
     public static boolean TLS = Defaults.USE_TLS;
 
-    public static Map<String, String> redirects = new HashMap<>();
+    public static final Map<String, String> redirects = new HashMap<>();
 }

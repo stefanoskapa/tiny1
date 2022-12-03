@@ -7,7 +7,7 @@ import java.net.Socket;
 
 public class RequestRunnable implements Runnable {
 
-    Socket socket;
+    final Socket socket;
 
     public RequestRunnable(Socket socket) {
         this.socket = socket;

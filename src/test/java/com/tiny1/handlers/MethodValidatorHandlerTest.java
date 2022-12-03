@@ -10,38 +10,35 @@ import java.io.OutputStream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MethodValidatorHandlerTest {
-    MethodValidatorHandler mvh = new MethodValidatorHandler(null);
-    boolean actual;
+    final MethodValidatorHandler mvh = new MethodValidatorHandler(null);
 
     @Test
     public void handle_nullParams_false() {
-        actual = mvh.handle(null, null);
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, ()
+                -> mvh.handle(null, null));
     }
     @Test
     public void handle_nullRequest_false() {
-        actual = mvh.handle(null, new Response());
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, ()
+                ->  mvh.handle(null, new Response()));
     }
 
     @Test
     public void handle_nullResponse_false() {
-        actual = mvh.handle(new Request(null,null), null);
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () -> mvh.handle(new Request(null,null), null));
     }
 
     @Test
     public void handle_nullRequestStringOnRequest_false() {
         OutputStream output = new ByteArrayOutputStream();
-        actual = mvh.handle(new Request(null,output),new Response());
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () -> mvh.handle(new Request(null,output),new Response()));
     }
 
     @Test
     public void handle_nullOutputStreamOnRequest_false() {
-        actual = mvh.handle(new Request("",null),new Response());
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () -> mvh.handle(new Request("",null),new Response()));
     }
+
 
 
 }

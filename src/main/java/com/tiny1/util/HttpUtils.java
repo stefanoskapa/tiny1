@@ -20,9 +20,8 @@ public class HttpUtils {
         InputStream inputStream = socket.getInputStream();
         int numOfBytes = inputStream.read(requestBytes);
 
-        if (numOfBytes == Conf.headerSize) {
+        if (numOfBytes == Conf.headerSize) // can numOfBytes ever be greater than headerSize?
             throw new RuntimeException("Header size exceeded");
-        }
 
         if (numOfBytes != -1) {
             String request = new String(requestBytes, 0, numOfBytes);
@@ -33,24 +32,34 @@ public class HttpUtils {
 
 
     //TODO needs to be rewritten
-    public static void sendResponse(Request requestObject, Response responseObject) throws IOException {
+    public static void sendResponse(Request request, Response response) throws IOException {
+        IOUtils.checkNulls(request);
+        if (request.getRequestString().isEmpty())
+            return;
+        PrintWriter pw = new PrintWriter(request.getOutput());
+        pw.print(response.getResponse() + HttpResponses.CRLF);
+        if (request.getMethod().equals("GET") && response.getResponse().equals(HttpResponses.OK)) {
+            pw.print("Content-Type: " + request.getContentType() + HttpResponses.CRLF);
+            pw.println();
+            IOUtils.copy(request.getInput(), request.getOutput());
+        }
+        if (request.getMethod().equals("GET") && response.getResponse().equals(HttpResponses.MOVED_PERMANENTLY)) {
+            pw.print("Location: " + Conf.redirects.get(request.getUri()) + HttpResponses.CRLF);
+            pw.println();
+            pw.flush();
+        }
 
-        PrintWriter pw = new PrintWriter(requestObject.getOutput());
-        pw.print(responseObject.getResponse() + HttpResponses.CRLF);
-        if (requestObject.getMethod().equals("GET") && responseObject.getResponse().equals(HttpResponses.OK)) {
-            pw.print("Content-Type: " + requestObject.getContentType() + HttpResponses.CRLF);
-            pw.println();
-            pw.flush();
-            IOUtils.copy(requestObject.getInput(), requestObject.getOutput());
-        }
-        if (requestObject.getMethod().equals("GET") && responseObject.getResponse().equals(HttpResponses.MOVED_PERMANENTLY)) {
-            pw.print("Location: " + Conf.redirects.get(requestObject.getUri()) + HttpResponses.CRLF);
-            pw.println();
-            pw.flush();
-        }
         pw.close();
-        requestObject.getOutput().close();
+        Console.log(request, response.getResponse());
+    }
 
-        Console.log(requestObject, responseObject.getResponse());
+    public static void sendError(Request request) {
+        if (request == null || request.getOutput() == null || request.getRequestString() == null)
+            return;
+        PrintWriter pw = new PrintWriter(request.getOutput());
+        pw.print(HttpResponses.INTERNAL_SERVER_ERROR + HttpResponses.CRLF);
+        pw.flush();
+        pw.close();
+        Console.log(request, HttpResponses.INTERNAL_SERVER_ERROR);
     }
 }

@@ -27,7 +27,7 @@ public class ResourceHandler extends Handler {
 
         InputStream input = IOUtils.getResource(uri);
         request.setUri(uri);
-        if ((input == null) || uri.contains("..")) { //path traversal attack
+        if ((input == null) || uri.contains("..")) {
             response.setResponse(HttpResponses.NOT_FOUND);
             return false;
         }

@@ -19,14 +19,12 @@ HTTP/1.0
 ## Security
 Tiny1 was conceived as an exercise project, therefore unsuitable for 
 production. 
-That being said, security should always be taken seriously, therefore
-Tiny1 provides basic security against common attacking methods like:
+That being said, Tiny1 provides basic security against common attacking methods like:
 
 * Path Traversal
 * Buffer Overflow
-* Denial Of Service
 
-Further, logging is secure (good old println), and
+Further, logging is secure (good luck hacking println), and
 an extra layer of security is provided naturally by the JVM.
 In addition, tiny1 has undergone extensive stress- and pen-testing
 by the author.

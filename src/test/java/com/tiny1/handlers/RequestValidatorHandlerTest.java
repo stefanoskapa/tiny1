@@ -12,40 +12,32 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RequestValidatorHandlerTest {
 
-    RequestValidatorHandler rvh = new RequestValidatorHandler(null);
-    boolean actual;
+    final RequestValidatorHandler rvh = new RequestValidatorHandler(null);
 
     @Test
     public void handle_nullParams_false() {
-        actual = rvh.handle(null, null);
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () -> rvh.handle(null, null));
     }
     @Test
     public void handle_nullRequest_false() {
-        actual = rvh.handle(null, new Response());
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () ->  rvh.handle(null, new Response()));
     }
 
     @Test
     public void handle_nullResponse_false() {
-        actual = rvh.handle(new Request(null,null), null);
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () -> rvh.handle(new Request(null,null), null));
     }
 
     @Test
     public void handle_nullRequestStringOnRequest_false() {
         OutputStream output = new ByteArrayOutputStream();
-        actual = rvh.handle(new Request(null,output),new Response());
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () -> rvh.handle(new Request(null,output),new Response()));
     }
 
     @Test
     public void handle_nullOutputStreamOnRequest_false() {
-        actual = rvh.handle(new Request("",null),new Response());
-        assertFalse(actual);
+        assertThrows(NullPointerException.class, () -> rvh.handle(new Request("",null),new Response()));
     }
-
-
 
 
 }

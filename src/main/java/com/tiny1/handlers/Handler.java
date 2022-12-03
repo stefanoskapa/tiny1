@@ -2,6 +2,7 @@ package com.tiny1.handlers;
 
 import com.tiny1.model.Request;
 import com.tiny1.model.Response;
+import com.tiny1.util.IOUtils;
 
 public abstract class Handler {
 
@@ -13,19 +14,13 @@ public abstract class Handler {
 
     /**
      * Calls handleImpl() and runs the next handler in the chain.
-     * Some validation has been put here in order to
-     * avoid boilerplate in the concrete handlers.
+     *
      * @param request a Request object
      * @param response a Response object
-     * @return if validation succeeded or not
+     * @return if the processing is completed
      */
-    public boolean handle(Request request, Response response) {
-        if (request == null
-                || response == null
-                || request.getRequestString() == null
-                || request.getOutput() == null)
-            return false;
-
+    public boolean handle(Request request, Response response) throws NullPointerException{
+        IOUtils.checkNulls(request);
         boolean isSuccess = handleImpl(request, response);
 
         if (next != null && isSuccess)
