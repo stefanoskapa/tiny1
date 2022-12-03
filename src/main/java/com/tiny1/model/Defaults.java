@@ -11,4 +11,5 @@ public interface Defaults {
     boolean USE_TLS = false;
 
     int BUFFER_SIZE = 8192;
+    String DATE_TIME_FORMAT="yyyy-MM-dd HH:mm:ss.SSS";
 }

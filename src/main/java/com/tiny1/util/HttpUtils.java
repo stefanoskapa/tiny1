@@ -41,6 +41,7 @@ public class HttpUtils {
         if (request.getMethod().equals("GET") && response.getResponse().equals(HttpResponses.OK)) {
             pw.print("Content-Type: " + request.getContentType() + HttpResponses.CRLF);
             pw.println();
+            pw.flush();
             IOUtils.copy(request.getInput(), request.getOutput());
         }
         if (request.getMethod().equals("GET") && response.getResponse().equals(HttpResponses.MOVED_PERMANENTLY)) {
