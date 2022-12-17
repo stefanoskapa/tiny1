@@ -20,7 +20,8 @@ public abstract class Handler {
      * @return if the processing is completed
      */
     public boolean handle(Request request, Response response) throws NullPointerException{
-        IOUtils.checkNulls(request);
+        if (IOUtils.checkNulls(request))
+            throw new NullPointerException("Null in Request Object");
         boolean isSuccess = handleImpl(request, response);
 
         if (next != null && isSuccess)

@@ -1,5 +1,6 @@
 package com.tiny1.handlers;
 
+import com.tiny1.model.Conf;
 import com.tiny1.model.Request;
 import com.tiny1.model.Response;
 import com.tiny1.util.HttpUtils;
@@ -15,8 +16,9 @@ public class Processor {
 
         try (socket) {
             output = socket.getOutputStream();
-            String rawRequest = HttpUtils.getRequest(socket);
-            request = new Request(rawRequest, output);
+            String requestString = HttpUtils.getRequest(socket);
+            request = new Request(requestString, output);
+            // Request object has no nulls in it from now on.
 
             Handler cth = new ContentTypeHandler(null);
             Handler rh = new ResourceHandler(cth);
@@ -27,8 +29,15 @@ public class Processor {
             HttpUtils.sendResponse(request, response);
 
         } catch (Exception e) {
-            System.out.println("CRITICAL ERROR: " + e.getMessage());
+            if (Conf.debug)
+                e.printStackTrace();
+            else
+                System.out.println(e.getMessage());
             HttpUtils.sendError(request);
+            /*TODO
+            Improve error handling as not all exceptions are status 500.
+            And request object might be null, maybe find a different place for sendError method.
+             */
         }
     }
 }

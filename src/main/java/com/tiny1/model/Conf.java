@@ -12,4 +12,5 @@ public class Conf {
     public static boolean TLS = Defaults.USE_TLS;
     public static final Map<String, String> redirects = new HashMap<>();
     public static final String dtFormat = Defaults.DATE_TIME_FORMAT;
+    public static boolean debug = Defaults.DEBUG;
 }

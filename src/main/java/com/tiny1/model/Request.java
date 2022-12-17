@@ -3,6 +3,7 @@ package com.tiny1.model;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Request {
 
@@ -17,8 +18,8 @@ public class Request {
     private String httpTag;
 
     public Request(String requestString, OutputStream output) {
-        this.requestString = requestString;
-        this.output = output;
+        this.requestString = Objects.requireNonNull(requestString);
+        this.output = Objects.requireNonNull(output);
         this.timestamp = LocalDateTime.now();
     }
 

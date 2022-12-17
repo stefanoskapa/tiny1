@@ -24,8 +24,7 @@ That being said, Tiny1 provides basic security against common attacking methods 
 * Path Traversal
 * Buffer Overflow
 
-Further, logging is secure (good luck hacking println), and
-an extra layer of security is provided naturally by the JVM.
+Further, logging is secure (good luck hacking println).
 In addition, tiny1 has undergone extensive stress- and pen-testing
 by the author.
 
@@ -54,6 +53,27 @@ To spin up an instance of tiny1 with its defaults, follow these 5 simple steps:
 5. Start the server!
 
 `java -jar tiny1.jar` 
+
+## Default Configuration
+Tiny1 works out-of-the-box, with the following defaults:
+
+Port: 8000
+Document root: /static
+
+## Custom Configuration
+Tiny1 allows a couple of configurations that may make your life easier. However, if the
+command-line arguments are too many, consider creating a deployment script.
+
+### Redirects
+You can set 301 redirects with the --redirect option, which accepts two urls separated by space.
+The first url must be <b>relative</b> to your context, while the second needs to be <b>absolute</b>.
+Here is an example:
+
+`java -jar tiny1.jar --redirect / https://www.google.com`
+
+
+
+
 
 
 

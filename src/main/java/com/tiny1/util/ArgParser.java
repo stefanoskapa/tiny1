@@ -59,6 +59,10 @@ public class ArgParser {
             case "--redirect":
                 Conf.redirects.put(args[++index],args[++index]);
                 break;
+            case "-d":
+            case "--debug":
+                Conf.debug = true;
+                break;
             case "-h":
             case "--help":
                 Console.showHelp();

@@ -31,13 +31,10 @@ public class IOUtils {
         }
     }
 
-    public static void checkNulls(Request request) throws NullPointerException {
-        if (request == null)
-            throw new NullPointerException("Request object is null");
-        if (request.getRequestString() == null)
-            throw new NullPointerException("Request string is null");
-        if (request.getOutput() == null)
-            throw new NullPointerException("OutputStream is null");
+    public static boolean checkNulls(Request request) throws NullPointerException {
+        return request == null ||
+                request.getOutput() == null ||
+                request.getRequestString() == null;
     }
 
 
