@@ -2,14 +2,13 @@ package com.tiny1.util;
 
 import com.tiny1.model.Conf;
 import com.tiny1.model.Defaults;
-import com.tiny1.model.Request;
 
 import java.io.*;
+import java.net.Socket;
 
 public class IOUtils {
     /**
      * Copies efficiently InputStream to OutputStream
-     * BUFFER_SIZE of 8192 seems to perform well on average
      *
      * @param input  InputStream object
      * @param output OutputStream object
@@ -31,10 +30,27 @@ public class IOUtils {
         }
     }
 
-    public static boolean checkNulls(Request request) throws NullPointerException {
-        return request == null ||
-                request.getOutput() == null ||
-                request.getRequestString() == null;
+    /**
+     * Waits until data is read from the input stream.
+     *
+     * @param socket A socket object
+     * @return String with the data that has been read
+     * @throws IOException
+     * @throws NullPointerException
+     * @throws IllegalStateException
+     */
+    public static String parseRequest(Socket socket) throws IOException {
+
+        byte[] header = new byte[Conf.headerSize + 1];
+        InputStream inputStream = socket.getInputStream();
+
+        int size = inputStream.read(header);
+        if (size == -1)
+            throw new IllegalStateException("No data");
+        if (size == Conf.headerSize + 1)
+            throw new IllegalStateException("Header size exceeded");
+
+        return new String(header, 0, size);
     }
 
 

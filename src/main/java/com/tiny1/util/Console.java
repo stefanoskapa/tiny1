@@ -27,6 +27,13 @@ public class Console {
         System.out.println(output);
     }
 
+    public static void logErr(Exception e) {
+        if (Conf.debug)
+            e.printStackTrace();
+        else
+            System.out.println(e.getMessage());
+    }
+
     public static void showLogo() {
         System.out.println();
         System.out.println("     _/      _/                        _/");

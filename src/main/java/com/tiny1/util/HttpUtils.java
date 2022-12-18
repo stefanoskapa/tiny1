@@ -6,35 +6,15 @@ import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
-import java.net.Socket;
 
 public class HttpUtils {
-
-    public static String getRequest(Socket socket) throws Exception {
-
-        StringBuilder requestString = new StringBuilder();
-        byte[] requestBytes = new byte[Conf.headerSize + 1];
-
-        InputStream inputStream = socket.getInputStream();
-        int numOfBytes = inputStream.read(requestBytes);
-
-        if (numOfBytes == Conf.headerSize + 1)
-            throw new RuntimeException("Header size exceeded");
-
-        if (numOfBytes != -1) {
-            String request = new String(requestBytes, 0, numOfBytes);
-            requestString.append(request);
-        }
-        return requestString.toString();
-    }
 
 
     //TODO needs to be rewritten
     public static void sendResponse(Request request, Response response) throws IOException {
-        if (IOUtils.checkNulls(request))
-            throw new NullPointerException("Null in Request Object");
+//        if (IOUtils.checkNulls(request))
+//            throw new NullPointerException("Null in Request Object");
         if (request.getRequestString().isEmpty())
             return;
         PrintWriter pw = new PrintWriter(request.getOutput());
@@ -56,8 +36,8 @@ public class HttpUtils {
     }
 
     public static void sendError(Request request) {
-        if (IOUtils.checkNulls(request))
-            return;
+//        if (IOUtils.checkNulls(request))
+//            return;
         PrintWriter pw = new PrintWriter(request.getOutput());
         pw.print(HttpResponses.INTERNAL_SERVER_ERROR + HttpResponses.CRLF);
         pw.flush();
