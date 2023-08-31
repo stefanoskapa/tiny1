@@ -17,16 +17,8 @@ GET and HEAD
 HTTP/1.0
 
 ## Security
-Tiny1 was conceived as an exercise project, therefore unsuitable for 
-production. 
-That being said, Tiny1 provides basic security against common attacking methods like:
-
-* Path Traversal
-* Buffer Overflow
-
-Further, logging is secure (good luck hacking println).
-In addition, tiny1 has undergone extensive stress- and pen-testing
-by the author.
+Tiny1 is more of an exercise project, which probably makes it unsuitable for 
+production environments.
 
 ## Requirements
 * Java 11
