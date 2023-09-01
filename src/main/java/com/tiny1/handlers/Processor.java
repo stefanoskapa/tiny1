@@ -17,10 +17,9 @@ public class Processor {
         OutputStream output;
 
         try (socket) {
-            output = socket.getOutputStream(); //throws IOException
+            output = socket.getOutputStream();
             String requestString = IOUtils.parseRequest(socket);
             request = new Request(requestString, output);
-            // Request object has no nulls in it from now on.
 
             Handler cth = new ContentTypeHandler(null);
             Handler rh = new ResourceHandler(cth);
@@ -30,13 +29,12 @@ public class Processor {
 
             HttpUtils.sendResponse(request, response);
 
-        }
-
-        catch (IOException e) {
+        } catch (IOException e) {
             Console.logErr(e);
-        } catch (Exception e) { //unexpected runtime exceptions
+        } catch (Exception e) {
             Console.logErr(e);
-            HttpUtils.sendError(request);
+            if (request != null)
+                HttpUtils.sendError(request);
         }
     }
 }

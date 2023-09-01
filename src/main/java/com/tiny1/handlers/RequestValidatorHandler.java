@@ -7,6 +7,9 @@ import com.tiny1.model.Response;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
+/**
+ * Handler for validating the overall format of the HTTP request
+ */
 public class RequestValidatorHandler extends Handler {
     private static final Pattern PATTERN = Pattern.compile("^[A-Z]{3,7} \\S{1,2048} HTTP/\\d.\\d\r\n");
     public RequestValidatorHandler(Handler next) {

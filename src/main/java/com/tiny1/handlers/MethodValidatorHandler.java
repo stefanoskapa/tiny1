@@ -4,6 +4,10 @@ import com.tiny1.model.Request;
 import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
 
+/**
+ * Handler for validating the HTTP method
+ * Allowed methods: GET, HEAD
+ */
 public class MethodValidatorHandler extends Handler {
 
     public MethodValidatorHandler(Handler next) {

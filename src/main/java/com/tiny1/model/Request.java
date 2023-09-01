@@ -14,7 +14,6 @@ public class Request {
     private InputStream input;
     private String contentType;
     private final LocalDateTime timestamp;
-
     private String httpTag;
 
     public Request(String requestString, OutputStream output) {

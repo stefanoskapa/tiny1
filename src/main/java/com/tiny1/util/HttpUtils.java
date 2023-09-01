@@ -13,8 +13,7 @@ public class HttpUtils {
 
     //TODO needs to be rewritten
     public static void sendResponse(Request request, Response response) throws IOException {
-//        if (IOUtils.checkNulls(request))
-//            throw new NullPointerException("Null in Request Object");
+
         if (request.getRequestString().isEmpty())
             return;
         PrintWriter pw = new PrintWriter(request.getOutput());
@@ -36,8 +35,6 @@ public class HttpUtils {
     }
 
     public static void sendError(Request request) {
-//        if (IOUtils.checkNulls(request))
-//            return;
         PrintWriter pw = new PrintWriter(request.getOutput());
         pw.print(HttpResponses.INTERNAL_SERVER_ERROR + HttpResponses.CRLF);
         pw.flush();
