@@ -14,7 +14,6 @@ public class Main {
         Console.showLogo();
         Console.showSettings();
 
-
         if (Conf.TLS)
             HttpsServer.start();
         else

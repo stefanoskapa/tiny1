@@ -16,7 +16,8 @@ public class MethodValidatorHandler extends Handler {
 
     @Override
     public boolean handleImpl(Request request, Response response) {
-        if (request.getMethod().equals("GET") || request.getMethod().equals("HEAD"))
+
+        if ("GET".equals(request.getMethod()) || "HEAD".equals(request.getMethod()) )
             return true;
         response.setResponse(HttpResponses.METHOD_NOT_ALLOWED);
         return false;

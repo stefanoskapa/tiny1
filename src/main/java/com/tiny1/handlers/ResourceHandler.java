@@ -32,7 +32,7 @@ public class ResourceHandler extends Handler {
             return false;
         }
         response.setResponse(HttpResponses.OK);
-        request.setInput(input);
+        //request.setInput(input);
         return true;
     }
 

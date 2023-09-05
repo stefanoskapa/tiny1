@@ -1,7 +1,7 @@
 package com.tiny1.model;
 
 
-import com.tiny1.handlers.Processor;
+import com.tiny1.server.Processor;
 
 import java.net.Socket;
 

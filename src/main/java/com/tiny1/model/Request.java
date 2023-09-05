@@ -2,6 +2,7 @@ package com.tiny1.model;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -10,15 +11,14 @@ public class Request {
     private String method;
     private String uri;
     private final String requestString;
-    private final OutputStream output;
-    private InputStream input;
+    private Socket socket;
     private String contentType;
     private final LocalDateTime timestamp;
     private String httpTag;
 
-    public Request(String requestString, OutputStream output) {
+    public Request(String requestString, Socket socket) {
         this.requestString = Objects.requireNonNull(requestString);
-        this.output = Objects.requireNonNull(output);
+        this.socket = Objects.requireNonNull(socket);
         this.timestamp = LocalDateTime.now();
     }
 
@@ -42,17 +42,9 @@ public class Request {
         return method;
     }
 
-    public OutputStream getOutput() {
-        return output;
-    }
 
-    public InputStream getInput() {
-        return input;
-    }
 
-    public void setInput(InputStream input) {
-        this.input = input;
-    }
+
 
     public String getContentType() {
         return contentType;
@@ -74,4 +66,19 @@ public class Request {
         this.uri = uri;
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "method='" + method + '\'' +
+                ", uri='" + uri + '\'' +
+                ", requestString='" + requestString.replace("\r", "[CR]").replace("\n", "[LF]") + '\'' +
+                ", contentType='" + contentType + '\'' +
+                ", timestamp=" + timestamp +
+                ", httpTag='" + httpTag + '\'' +
+                '}';
+    }
 }

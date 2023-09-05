@@ -21,6 +21,7 @@ public class RequestValidatorHandler extends Handler {
 
         if (!PATTERN.matcher(request.getRequestString()).find()) {
             response.setResponse(HttpResponses.BAD_REQUEST);
+            System.out.println("DOESNT MATCH REGEX");
             return false;
         }
         StringTokenizer tokens = new StringTokenizer(request.getRequestString());

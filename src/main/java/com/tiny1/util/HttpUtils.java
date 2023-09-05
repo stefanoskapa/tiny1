@@ -14,17 +14,19 @@ public class HttpUtils {
     //TODO needs to be rewritten
     public static void sendResponse(Request request, Response response) throws IOException {
 
+//        System.out.println(request);
+//        System.out.println(response);
         if (request.getRequestString().isEmpty())
             return;
-        PrintWriter pw = new PrintWriter(request.getOutput());
+        PrintWriter pw = new PrintWriter(request.getSocket().getOutputStream());
         pw.print(response.getResponse() + HttpResponses.CRLF);
-        if (request.getMethod().equals("GET") && response.getResponse().equals(HttpResponses.OK)) {
+        if ("GET".equals(request.getMethod()) && response.getResponse().equals(HttpResponses.OK)) {
             pw.print("Content-Type: " + request.getContentType() + HttpResponses.CRLF);
             pw.println();
             pw.flush();
-            IOUtils.copy(request.getInput(), request.getOutput());
+            IOUtils.copy(request.getSocket().getInputStream(), request.getSocket().getOutputStream());
         }
-        if (request.getMethod().equals("GET") && response.getResponse().equals(HttpResponses.MOVED_PERMANENTLY)) {
+        if ("GET".equals(request.getMethod()) && response.getResponse().equals(HttpResponses.MOVED_PERMANENTLY)) {
             pw.print("Location: " + Conf.redirects.get(request.getUri()) + HttpResponses.CRLF);
             pw.println();
             pw.flush();
@@ -34,8 +36,8 @@ public class HttpUtils {
         Console.log(request, response.getResponse());
     }
 
-    public static void sendError(Request request) {
-        PrintWriter pw = new PrintWriter(request.getOutput());
+    public static void sendError(Request request) throws IOException {
+        PrintWriter pw = new PrintWriter(request.getSocket().getOutputStream());
         pw.print(HttpResponses.INTERNAL_SERVER_ERROR + HttpResponses.CRLF);
         pw.flush();
         pw.close();

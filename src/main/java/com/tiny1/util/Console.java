@@ -3,6 +3,7 @@ package com.tiny1.util;
 import com.tiny1.model.Conf;
 import com.tiny1.model.Request;
 
+import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -17,14 +18,11 @@ public class Console {
         var format = DateTimeFormatter.ofPattern(Conf.dtFormat);
         long responseTime = MILLIS.between(request.getTimestamp(), now);
 
-        String output = request.getTimestamp().format(format) +
-                " -> " + request.getMethod() +
-                " " + request.getUri() +
-                " " + request.getHttpTag() +
-                "\n" + now.format(format) +
-                " <- " + response +
-                " (" + responseTime + "ms)";
-        System.out.println(output);
+        String output = "%s -> %s %s %s (%s)\n%s <- %s (%sms)";
+        System.out.printf(output, request.getTimestamp().format(format),
+                request.getMethod(), request.getUri(), request.getHttpTag(),
+                request.getSocket().getInetAddress().getHostAddress(),
+                now.format(format), response, responseTime);
     }
 
     public static void logErr(Exception e) {
@@ -40,7 +38,7 @@ public class Console {
         System.out.println("  _/_/_/_/      _/_/_/    _/    _/  _/_/");
         System.out.println("   _/      _/  _/    _/  _/    _/    _/");
         System.out.println("  _/      _/  _/    _/  _/    _/    _/");
-        System.out.println("   _/_/  _/  _/    _/    _/_/_/    _/       v0.1");
+        System.out.println("   _/_/  _/  _/    _/    _/_/_/    _/");
         System.out.println("                            _/");
         System.out.println("                       _/_/");
         System.out.println();
