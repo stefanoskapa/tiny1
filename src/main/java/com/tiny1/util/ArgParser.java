@@ -1,6 +1,6 @@
 package com.tiny1.util;
 
-import com.tiny1.model.Conf;
+import com.tiny1.configuration.Conf;
 import com.tiny1.model.Defaults;
 
 
@@ -12,8 +12,6 @@ public class ArgParser {
     }
 
     public void parse() {
-        if (args.length == 0)
-            return;
 
         for (int i = 0; i < args.length; i++) {
             try {
@@ -24,6 +22,8 @@ public class ArgParser {
             }
         }
 
+        Conf.makeImmutable();
+
     }
 
     private int handleArg(int index) throws NumberFormatException {
@@ -33,7 +33,7 @@ public class ArgParser {
         switch (param) {
             case "-p":
             case "--port":
-                Conf.port = Integer.parseInt(args[++index]);
+                Conf.setPort(Integer.parseInt(args[++index]));
                 break;
             case "-v":
             case "--version":
@@ -42,26 +42,26 @@ public class ArgParser {
                 break;
             case "-ps":
             case "--pool-size":
-                Conf.poolSize = Integer.parseInt(args[++index]);
+                Conf.setPoolSize(Integer.parseInt(args[++index]));
                 break;
             case "-hs":
             case "--header-size":
-                Conf.headerSize = Integer.parseInt(args[++index]);
+                Conf.setHeaderSize(Integer.parseInt(args[++index]));
                 break;
             case "-dr":
             case "--document-root":
-                Conf.staticPath = args[++index];
+                Conf.setStaticPath(args[++index]);
                 break;
             case "--tls":
-                Conf.TLS = true;
+                Conf.setTLS(true);
                 break;
             case "-r":
             case "--redirect":
-                Conf.redirects.put(args[++index],args[++index]);
+                Conf.addRedirects(args[++index],args[++index]);
                 break;
             case "-d":
             case "--debug":
-                Conf.debug = true;
+                Conf.setDebug(true);
                 break;
             case "-h":
             case "--help":

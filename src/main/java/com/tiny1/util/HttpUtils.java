@@ -1,6 +1,6 @@
 package com.tiny1.util;
 
-import com.tiny1.model.Conf;
+import com.tiny1.configuration.Conf;
 import com.tiny1.model.Request;
 import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
@@ -27,7 +27,7 @@ public class HttpUtils {
             IOUtils.copy(request.getSocket().getInputStream(), request.getSocket().getOutputStream());
         }
         if ("GET".equals(request.getMethod()) && response.getResponse().equals(HttpResponses.MOVED_PERMANENTLY)) {
-            pw.print("Location: " + Conf.redirects.get(request.getUri()) + HttpResponses.CRLF);
+            pw.print("Location: " + Conf.getRedirects().get(request.getUri()) + HttpResponses.CRLF);
             pw.println();
             pw.flush();
         }

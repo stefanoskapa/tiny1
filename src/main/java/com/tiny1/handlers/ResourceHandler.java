@@ -1,6 +1,6 @@
 package com.tiny1.handlers;
 
-import com.tiny1.model.Conf;
+import com.tiny1.configuration.Conf;
 import com.tiny1.model.Request;
 import com.tiny1.model.HttpResponses;
 import com.tiny1.model.Response;
@@ -20,7 +20,7 @@ public class ResourceHandler extends Handler {
         tokens.nextToken();
         String uri = tokens.nextToken();
 
-        if (Conf.redirects.containsKey(uri)) {
+        if (Conf.getRedirects().containsKey(uri)) {
             response.setResponse(HttpResponses.MOVED_PERMANENTLY);
             return false;
         }

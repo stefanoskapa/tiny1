@@ -1,9 +1,8 @@
 package com.tiny1.util;
 
-import com.tiny1.model.Conf;
+import com.tiny1.configuration.Conf;
 import com.tiny1.model.Request;
 
-import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +14,7 @@ public class Console {
         if (request == null)
             return;
         var now = LocalDateTime.now();
-        var format = DateTimeFormatter.ofPattern(Conf.dtFormat);
+        var format = DateTimeFormatter.ofPattern(Conf.getDtFormat());
         long responseTime = MILLIS.between(request.getTimestamp(), now);
 
         String output = "%s -> %s %s %s (%s)\n%s <- %s (%sms)";
@@ -26,7 +25,7 @@ public class Console {
     }
 
     public static void logErr(Exception e) {
-        if (Conf.debug)
+        if (Conf.isDebug())
             e.printStackTrace();
         else
             System.out.println(e.getMessage());
@@ -46,15 +45,15 @@ public class Console {
 
     public static void showSettings() {
         System.out.println();
-        System.out.println("Port:.................." + Conf.port);
-        System.out.println("TLS:..................." + (Conf.TLS ? "Enabled" : "Disabled"));
-        System.out.println("Pool Size:............." + Conf.poolSize);
-        System.out.println("Max Header Size:......." + Conf.headerSize);
-        System.out.println("Document Root:........." + Conf.staticPath);
+        System.out.println("Port:.................." + Conf.getPort());
+        System.out.println("TLS:..................." + (Conf.isTLS() ? "Enabled" : "Disabled"));
+        System.out.println("Pool Size:............." + Conf.getPoolSize());
+        System.out.println("Max Header Size:......." + Conf.getHeaderSize());
+        System.out.println("Document Root:........." + Conf.getStaticPath());
         System.out.println();
-        if (!Conf.redirects.isEmpty()) {
+        if (!Conf.getRedirects().isEmpty()) {
             System.out.println("--------- Redirects ---------");
-            System.out.println(Conf.redirects);
+            System.out.println(Conf.getRedirects());
         }
         System.out.println();
     }

@@ -1,6 +1,6 @@
 package com.tiny1.server;
 
-import com.tiny1.model.Conf;
+import com.tiny1.configuration.Conf;
 import com.tiny1.model.RequestRunnable;
 
 import java.net.ServerSocket;
@@ -18,8 +18,8 @@ public class HttpsServer {
         SSLServerSocketFactory ssf = (SSLServerSocketFactory) SSLServerSocketFactory.getDefault();
 
 
-        try (ServerSocket serverSocket = ssf.createServerSocket(Conf.port)) {
-            ExecutorService executor = Executors.newFixedThreadPool(Conf.poolSize);
+        try (ServerSocket serverSocket = ssf.createServerSocket(Conf.getPort())) {
+            ExecutorService executor = Executors.newFixedThreadPool(Conf.getPoolSize());
             System.out.println("Waiting for incoming connections...\n");
 
             while (true) {

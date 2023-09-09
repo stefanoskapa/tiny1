@@ -1,6 +1,6 @@
 package com.tiny1.util;
 
-import com.tiny1.model.Conf;
+import com.tiny1.configuration.Conf;
 import com.tiny1.model.Defaults;
 
 import java.io.*;
@@ -24,7 +24,7 @@ public class IOUtils {
 
     public static InputStream getResource(String uri) {
         try {
-            return new DataInputStream(new FileInputStream(Conf.staticPath + uri));
+            return new DataInputStream(new FileInputStream(Conf.getStaticPath() + uri));
         } catch (Exception e) {
             return null;
         }
@@ -41,13 +41,13 @@ public class IOUtils {
      */
     public static String parseRequest(Socket socket) throws IOException {
 
-        byte[] header = new byte[Conf.headerSize + 1];
+        byte[] header = new byte[Conf.getHeaderSize() + 1];
         InputStream inputStream = socket.getInputStream();
 
         int size = inputStream.read(header);
         if (size == -1)
             throw new IllegalStateException("No data");
-        if (size == Conf.headerSize + 1)
+        if (size == Conf.getHeaderSize() + 1)
             throw new IllegalStateException("Header size exceeded");
 
         return new String(header, 0, size);

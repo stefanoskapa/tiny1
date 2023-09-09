@@ -1,6 +1,6 @@
 package com.tiny1;
 
-import com.tiny1.model.Conf;
+import com.tiny1.configuration.Conf;
 import com.tiny1.server.HttpServer;
 import com.tiny1.server.HttpsServer;
 import com.tiny1.util.ArgParser;
@@ -14,7 +14,7 @@ public class Main {
         Console.showLogo();
         Console.showSettings();
 
-        if (Conf.TLS)
+        if (Conf.isTLS())
             HttpsServer.start();
         else
             HttpServer.start();
